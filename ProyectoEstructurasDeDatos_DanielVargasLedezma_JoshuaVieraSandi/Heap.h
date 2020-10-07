@@ -3,8 +3,6 @@
 #include <iostream>
 #include "ListaDobleEnlazada.h"
 
-using namespace std;
-
 template <typename T>
 
 class Heap
@@ -20,7 +18,7 @@ public:
 		heap = new ListaDobleEnlazada<T>();
 	}
 
-	Heap(const ListaDobleEnlazada& obj)
+	Heap(const ListaDobleEnlazada<T>& obj)
 	{
 
 		heap = new ListaDobleEnlazada<T>(obj);
@@ -32,26 +30,18 @@ public:
 		heap->borrarEnPosición(posicion);
 	}
 
-	void Heapify(int i)
-	{
-
-
-	}
-
-	bool Heapify()
-	{
-
-		return false;
-	}
-
-	void insertarEnHeap(int dato)
+	void insertarEnHeap(T dato)
 	{
 
 		heap->insertar(dato);
-		this->Heapify(1);
+
+		for (int i = this->heap.getCantidadNodos() / 2 - 1; i >= 0; i--) {
+
+			heap->Heapify(i);
+		}
 	}
 
-	Heap<T>* crearHeap(ListaDobleEnlazada& lde)
+	Heap<T>* crearHeap(ListaDobleEnlazada<T>& lde)
 	{
 
 		Heap <T>* nuevoHeap = new Heap<T>(lde);

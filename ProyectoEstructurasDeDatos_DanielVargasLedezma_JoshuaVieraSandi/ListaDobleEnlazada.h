@@ -22,8 +22,68 @@ private:
 			ant = nullptr;
 		}
 	};
+
 	Nodo* cabeza;
 	int cantidadNodos;
+
+	//Metodos de Heap
+	int obtenerPosPadre(int i)
+	{
+
+		return (i - 1 / 2);
+	}
+
+	int obtenerPosHijoD(int i)
+	{
+
+		return (i * 2 + 2);
+	}
+
+	int obtenerPosHijoI(int i)
+	{
+
+		return (i * 2 + 1);
+	}
+
+	Nodo getNodoEnPosicion(int n)
+	{
+
+		if (n < 0) {
+
+			return nullptr;
+		}
+		else if (cantidadNodos > n) {
+
+			if (n == 1) {
+
+				return cabeza;
+			}
+			else {
+
+				Nodo* temp = cabeza;
+				int contador = 0;
+
+				while ((contador != n) && temp->sig) {
+
+					temp = temp->sig;
+					contador++;
+				}
+
+				return temp;
+			}
+		}
+		else {
+
+			return nullptr;
+		}
+	}
+
+	void intercambiar(Nodo* primero, Nodo* segundo) {
+
+		T aux = primero->dato;
+		primero->dato = segundo->dato;
+		segundo->dato = aux;
+	}
 
 public:
 
@@ -78,69 +138,70 @@ public:
 	}
 
 	void insertarEnPosición(int dato, int n){
-			if (!cabeza) {
 
-		insertar(dato);
-
-		return;
-	}
-
-	if (n <= 0) {
-
-		return;
-	}
-	else if (cantidadNodos >= n) {
-
-		Nodo* nuevo = new Nodo(dato);
-
-		if (cantidadNodos == 1) {
-
-			cabeza->dato = dato;
-			cantidadNodos++;
-
-			delete nuevo;
-			return;
-		}
-		else if (n - 1 == 0) {
-
-			cabeza->ant = nuevo;
-			nuevo->sig = cabeza;
-			cabeza = nuevo;
-			cantidadNodos++;
-
-			return;
-		}
-		else if (n - 1 == cantidadNodos) {
+		if (!cabeza) {
 
 			insertar(dato);
 
 			return;
 		}
-		else {
 
-			Nodo* temp = cabeza;
-			int contador = 0;
+		if (n <= 0) {
 
-			while (contador != n - 1 && temp->sig) {
-
-				temp = temp->sig;
-				contador++;
-			}
-
-			nuevo->sig = temp;
-			nuevo->ant = temp->ant;
-			nuevo->ant->sig = nuevo;
-			temp->ant = nuevo;
-
-			cantidadNodos++;
 			return;
 		}
-	}
-	else {
+		else if (cantidadNodos >= n) {
+
+			Nodo* nuevo = new Nodo(dato);
+
+			if (cantidadNodos == 1) {
+
+				cabeza->dato = dato;
+				cantidadNodos++;
+
+				delete nuevo;
+				return;
+			}
+			else if (n - 1 == 0) {
+
+				cabeza->ant = nuevo;
+				nuevo->sig = cabeza;
+				cabeza = nuevo;
+				cantidadNodos++;
+
+				return;
+			}
+			else if (n - 1 == cantidadNodos) {
+
+				insertar(dato);
+
+				return;
+			}
+			else {
+
+				Nodo* temp = cabeza;
+				int contador = 0;
+
+				while (contador != n - 1 && temp->sig) {
+
+					temp = temp->sig;
+					contador++;
+				}
+
+				nuevo->sig = temp;
+				nuevo->ant = temp->ant;
+				nuevo->ant->sig = nuevo;
+				temp->ant = nuevo;
+
+				cantidadNodos++;
+				return;
+			}
+		}
+		else {
 
 		return;
+		}
 	}
-}
 
 	int getDatoEnPosicion(int n)
 	{
@@ -251,32 +312,38 @@ public:
 		}
 	}
 
-	const int getCantidadNodos(){
-	return cantidadNodos;
-	}
-
-	//Metodos de Heap
-	int obtenerPadre(int i)
+	const int getCantidadNodos()
 	{
 
-		return getDatoEnPosicion(i - 1 / 2);
-	}
-
-	int obtenerHijoD(int i)
-	{
-
-		return getDatoEnPosicion(i * 2 + 2);
-	}
-
-	int obtenerHijoI(int i)
-	{
-
-		return getDatoEnPosicion(i * 2 + 1);
+		return cantidadNodos;
 	}
 
 	void heapify(int i)
 	{
 
+		int mayor = 0;
+		int izq = obtenerPosHijoI(i);
+		int der = obtenerPosHijoD(i);
+
+		if (getDatoEnPosicion(izq) > getDatoEnPosicion(i)) {
+
+			mayor = izq;
+		}
+		else {
+
+			mayor = i;
+		}
+
+		if (getDatoEnPosicion(der) > getDatoEnPosicion(mayor)) {
+
+			mayor = der;
+		}
+
+		if (mayor != i) {
+
+			intercambiar(getNodoEnPosicion(mayor), getNodoEnPosicion(i));
+			heapify(mayor);
+		}
 	}
 
 	~ListaDobleEnlazada()

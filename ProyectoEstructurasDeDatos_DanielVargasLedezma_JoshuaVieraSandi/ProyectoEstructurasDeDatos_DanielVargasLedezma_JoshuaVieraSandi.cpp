@@ -1,13 +1,14 @@
 #include <iostream>
 #include <sstream>
 #include "ListaDobleEnlazada.h"
-using namespace std;
+#include "Heap.h"
+
 std::string imprimirDatosEnLista(ListaDobleEnlazada<int>* listaD);
 
 int main()
 {
 
-    ListaDobleEnlazada<int>* listaD = new ListaDobleEnlazada<int>;
+    /*ListaDobleEnlazada<int>* listaD = new ListaDobleEnlazada<int>;
 
     listaD->insertar(5);
     listaD->insertar(10);
@@ -46,7 +47,11 @@ int main()
     std::cout << imprimirDatosEnLista(listaC) << "\n";
 
     delete listaD;
-    delete listaC;
+    delete listaC;*/
+
+    Heap<int>* heap = new Heap<int>();
+
+    heap->insertarEnHeap(4);
 
 }
 
