@@ -35,17 +35,30 @@ private:
 
 	int obtenerPosHijoD(int i)
 	{
+		int hijo = (i * 2 + 2);
 
-		return (i * 2 + 2);
+		if (hijo >= cantidadNodos) {
+
+			return -1;
+		}
+		else {
+
+			return hijo;
+		}
 	}
 
 	int obtenerPosHijoI(int i)
 	{
+		int hijo = (i * 2 + 1);
 
-		return (i * 2 + 1);
+		if (hijo >= cantidadNodos) {
+
+			return -1;
+		}
+		return hijo;
 	}
 
-	Nodo getNodoEnPosicion(int n)
+	Nodo *getNodoEnPosicion(int n)
 	{
 
 		if (n < 0) {
@@ -54,7 +67,7 @@ private:
 		}
 		else if (cantidadNodos > n) {
 
-			if (n == 1) {
+			if (n == 0) {
 
 				return cabeza;
 			}
@@ -80,9 +93,9 @@ private:
 
 	void intercambiar(Nodo* primero, Nodo* segundo) {
 
-		T aux = primero->dato;
-		primero->dato = segundo->dato;
-		segundo->dato = aux;
+		T aux = segundo->dato;
+		segundo->dato = primero->dato;
+		primero->dato = aux;
 	}
 
 public:
@@ -203,27 +216,23 @@ public:
 		}
 	}
 
-	int getDatoEnPosicion(int n)
+	T getDatoEnPosicion(int n)
 	{
 
-		if (n <= 0) {
+		if (n < 0) {
 
 			return -1;
 		}
-		else if (cantidadNodos >= n) {
+		else if (cantidadNodos > n) {
 
-			if (cantidadNodos == 1) {
-
-				return cabeza->dato;
-			}
-			else if (n == 1) {
+			if (n == 0) {
 
 				return cabeza->dato;
 			}
 			else {
 
 				Nodo* temp = cabeza;
-				int contador = 1;
+				int contador = 0;
 
 				while ((contador != n) && temp->sig) {
 

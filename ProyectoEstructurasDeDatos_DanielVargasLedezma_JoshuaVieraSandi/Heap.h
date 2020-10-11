@@ -35,9 +35,9 @@ public:
 
 		heap->insertar(dato);
 
-		for (int i = this->heap.getCantidadNodos() / 2 - 1; i >= 0; i--) {
+		for (int i = (heap->getCantidadNodos() / 2) - 1; i >= 0; i--) {
 
-			heap->Heapify(i);
+			heap->heapify(i);
 		}
 	}
 
@@ -54,6 +54,19 @@ public:
 		return nuevoHeap;
 	}
 
+	int getCantidadNodos() const {
 
+		return heap->getCantidadNodos();
+	}
+
+	T getDatoEnPosicion(int i) const {
+
+		return heap->getDatoEnPosicion(i);
+	}
+
+	~Heap() {
+
+		delete heap;
+	}
 };
 #endif
