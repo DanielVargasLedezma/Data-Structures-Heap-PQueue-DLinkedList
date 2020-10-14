@@ -142,6 +142,7 @@
     <ClCompile Include="ProyectoEstructurasDeDatos_DanielVargasLedezma_JoshuaVieraSandi.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ColaDePrioridad.h" />
     <ClInclude Include="Heap.h" />
     <ClInclude Include="ListaDobleEnlazada.h" />
   </ItemGroup>

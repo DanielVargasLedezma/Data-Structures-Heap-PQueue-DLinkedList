@@ -35,6 +35,10 @@ public:
 	{
 
 		heap->borrarEnPosición(posicion);
+		for (int i = (heap->getCantidadNodos() / 2) - 1; i >= 0; i--) {
+
+			heap->heapify(i);
+		}
 	}
 
 	void insertarEnHeap(T dato)

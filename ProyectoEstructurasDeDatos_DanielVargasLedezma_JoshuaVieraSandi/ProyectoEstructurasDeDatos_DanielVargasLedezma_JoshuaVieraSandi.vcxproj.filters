@@ -26,5 +26,8 @@
     <ClInclude Include="ListaDobleEnlazada.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ColaDePrioridad.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
