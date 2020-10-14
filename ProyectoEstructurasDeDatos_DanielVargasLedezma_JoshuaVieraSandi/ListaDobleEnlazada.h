@@ -41,10 +41,8 @@ private:
 
 			return -1;
 		}
-		else {
 
-			return hijo;
-		}
+		return hijo;
 	}
 
 	int obtenerPosHijoI(int i)
@@ -55,6 +53,7 @@ private:
 
 			return -1;
 		}
+
 		return hijo;
 	}
 
@@ -123,7 +122,7 @@ public:
 		cantidadNodos = obj.cantidadNodos;
 	}
 
-	void insertar(int dato)
+	void insertar(T dato)
 	{
 
 		Nodo* nuevo = new Nodo(dato);
@@ -148,72 +147,6 @@ public:
 		cantidadNodos++;
 
 		return;
-	}
-
-	void insertarEnPosición(int dato, int n){
-
-		if (!cabeza) {
-
-			insertar(dato);
-
-			return;
-		}
-
-		if (n <= 0) {
-
-			return;
-		}
-		else if (cantidadNodos >= n) {
-
-			Nodo* nuevo = new Nodo(dato);
-
-			if (cantidadNodos == 1) {
-
-				cabeza->dato = dato;
-				cantidadNodos++;
-
-				delete nuevo;
-				return;
-			}
-			else if (n - 1 == 0) {
-
-				cabeza->ant = nuevo;
-				nuevo->sig = cabeza;
-				cabeza = nuevo;
-				cantidadNodos++;
-
-				return;
-			}
-			else if (n - 1 == cantidadNodos) {
-
-				insertar(dato);
-
-				return;
-			}
-			else {
-
-				Nodo* temp = cabeza;
-				int contador = 0;
-
-				while (contador != n - 1 && temp->sig) {
-
-					temp = temp->sig;
-					contador++;
-				}
-
-				nuevo->sig = temp;
-				nuevo->ant = temp->ant;
-				nuevo->ant->sig = nuevo;
-				temp->ant = nuevo;
-
-				cantidadNodos++;
-				return;
-			}
-		}
-		else {
-
-		return;
-		}
 	}
 
 	T getDatoEnPosicion(int n)
@@ -252,19 +185,13 @@ public:
 	void borrarEnPosición(int n)
 	{
 
-		if (n <= 0) {
+		if (n < 0) {
 
 			return;
 		}
-		else if (cantidadNodos >= n) {
+		else if (cantidadNodos > n) {
 
-			if (cantidadNodos == 1) {
-
-				delete cabeza;
-				cantidadNodos--;
-				return;
-			}
-			else if (n == 1) {
+			if (n == 0) {
 
 				Nodo* temp = cabeza;
 
@@ -274,15 +201,13 @@ public:
 				cantidadNodos--;
 				return;
 			}
-			else if (n == cantidadNodos) {
+			else if (n + 1 == cantidadNodos) {
 
 				Nodo* temp = cabeza;
-				int contador = 1;
 
-				while (contador != n && temp->sig) {
+				while (temp->sig) {
 
 					temp = temp->sig;
-					contador++;
 				}
 
 				Nodo* temp2 = temp->ant;
@@ -297,7 +222,7 @@ public:
 			else {
 
 				Nodo* temp = cabeza;
-				int contador = 1;
+				int contador = 0;
 
 				while (contador != n && temp->sig) {
 
@@ -373,6 +298,4 @@ public:
 		delete cabeza;
 	}
 };
-
-
 #endif // !LISTADOBLEENLAZADA_H

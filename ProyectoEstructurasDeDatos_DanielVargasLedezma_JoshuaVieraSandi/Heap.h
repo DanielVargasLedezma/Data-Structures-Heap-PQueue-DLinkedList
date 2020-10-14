@@ -10,6 +10,13 @@ class Heap
 private:
 
 	ListaDobleEnlazada<T> *heap;
+	
+	Heap(const ListaDobleEnlazada<T> &obj)
+	{
+
+		heap = new ListaDobleEnlazada<T>(obj);
+	}
+
 public:
 
 	Heap()
@@ -18,10 +25,10 @@ public:
 		heap = new ListaDobleEnlazada<T>();
 	}
 
-	Heap(const ListaDobleEnlazada<T>& obj)
+	Heap(const Heap<T>& obj)
 	{
 
-		heap = new ListaDobleEnlazada<T>(obj);
+		heap = new ListaDobleEnlazada<T>(obj.heap);
 	}
 
 	void Eliminar(int posicion)
