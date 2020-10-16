@@ -20,10 +20,6 @@ public:
 	void insertarenCola(T dato) {
 		cola->insertarEnHeap(dato);
 	}
-	
-	void eliminarPos(int Pos) {
-		cola->Eliminar(Pos);
-	}
 
 	Heap<T>* crearHeap(ListaDobleEnlazada<T>& lde) {
 		return cola->crearHeap(lde);
@@ -39,11 +35,32 @@ public:
 		return cola->getDatoEnPosicion(i);
 	}
 
+	T pullHighestPriority() {
+
+		T highest = cola->getDatoEnPosicion(0);
+
+		cola->Eliminar(0);
+
+		return highest;
+	}
+
+	bool isEmpty() {
+
+		if (cola->getCantidadNodos() == 0) {
+
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
 	~ColaDePrioridad() {
 		delete cola;
 	}
 
 private:
+
 	Heap<T>* cola;
 
 	ColaDePrioridad(const Heap<T>& obj)
